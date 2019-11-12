@@ -1,17 +1,25 @@
 name: CI
 
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - uses: actions/checkout@master
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+      version: 10.x
+    - name: install yarn
+      run: npm install -g yarn
+    - name: yarn install, build, and test
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        yarn install  --frozen-lockfile
+        yarn build
+        yarn test
+    - name: Danger
+      run: yarn danger ci
+      env: DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
