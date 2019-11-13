@@ -33,7 +33,10 @@ const consolelogRegex = /console\.log\(.*\)/
 for (const index in changedFiles) {
   const filePath = changedFiles[index]
   const fileContent = fs.readFileSync(filePath).toString()
-
+  if (!fileContent) {
+    warn(`Are you sure you want to leave file "${filePath}" empty?`)
+    break
+  }
   if (fileContent.match(consolelogRegex)) {
     warn(`🗑️ Did you forget to remove console.log in file "${filePath}"`)
   }
