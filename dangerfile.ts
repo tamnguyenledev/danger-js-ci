@@ -30,7 +30,8 @@ if (!jiraTicketRegex.test(prTitle)) {
 }
 
 const consolelogRegex = /console\.log\(.*\)/
-for (const filePath in changedFiles) {
+for (const index in changedFiles) {
+  const filePath = changedFiles[index]
   const fileContent = fs.readFileSync(filePath).toString()
   console.log('TCL: fileContents', fileContent)
   const splittedPath = filePath.split('/')
