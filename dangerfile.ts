@@ -33,11 +33,8 @@ const consolelogRegex = /console\.log\(.*\)/
 for (const index in changedFiles) {
   const filePath = changedFiles[index]
   const fileContent = fs.readFileSync(filePath).toString()
-  console.log('TCL: fileContents', fileContent)
-  const splittedPath = filePath.split('/')
-  const fileName = splittedPath[splittedPath.length - 1]
 
   if (fileContent.match(consolelogRegex)) {
-    warn(`⚠ Did you forget to remove console.log in file "${fileName}"`)
+    warn(`🗑️ Did you forget to remove console.log in file "${filePath}"`)
   }
 }
