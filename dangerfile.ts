@@ -1,4 +1,5 @@
 import { message, danger, warn } from 'danger'
+import fs from 'fs'
 
 // Setup
 const github = danger.github
@@ -29,12 +30,11 @@ if (!jiraTicketRegex.test(prTitle)) {
 }
 
 const consolelogRegex = /console\.log\(.*\)/
-for (const filePath in changedFiles) {
-  const fileContents = danger.github.utils.fileContents(filePath).toString()
-  const splittedPath = filePath.split('/')
-  const fileName = splittedPath[splittedPath.length - 1]
+for (const index in changedFiles) {
+  const filePath = changedFiles[index]
+  const fileContent = fs.readFileSync(filePath).toString()
 
-  if (fileContents.match(consolelogRegex)) {
-    warn(`⚠ Did you forget to remove console.log in file "${fileName}"`)
+  if (fileContent.match(consolelogRegex)) {
+    warn(`🗑️ Did you forget to remove console.log in file "${filePath}"`)
   }
 }
