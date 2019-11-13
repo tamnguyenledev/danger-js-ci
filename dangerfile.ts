@@ -7,7 +7,8 @@ const modifiedFiles = danger.git.modified_files
 const newFiles = danger.git.created_files
 const changedFiles = [...modifiedFiles, ...newFiles]
 
-if (pr.assignee) {
+const numberOfReviewer = github.requested_reviewers.users.length
+if (numberOfReviewer) {
   message('👏 Great work having someone review your code')
 } else {
   warn('🕵 Remember to add at least 1 reviewer')
