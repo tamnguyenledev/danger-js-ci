@@ -1,4 +1,5 @@
 import { message, danger, warn } from 'danger'
+import fs from 'fs'
 
 // Setup
 const github = danger.github
@@ -27,17 +28,15 @@ if (!jiraTicketRegex.test(prTitle)) {
     `🔍 I can't find the Jira ticket number in the PR title. You should include it for easy tracking`
   )
 }
-console.log('TCL: changedFiles', changedFiles)
 
 const consolelogRegex = /console\.log\(.*\)/
 for (const filePath in changedFiles) {
-  danger.github.utils.fileContents(filePath).then((content) => {
-    console.log('TCL: fileContents', content)
-    const splittedPath = filePath.split('/')
-    const fileName = splittedPath[splittedPath.length - 1]
+  const fileContent = fs.readFileSync(filePath).toString()
+  console.log('TCL: fileContents', fileContent)
+  const splittedPath = filePath.split('/')
+  const fileName = splittedPath[splittedPath.length - 1]
 
-    if (content.match(consolelogRegex)) {
-      warn(`⚠ Did you forget to remove console.log in file "${fileName}"`)
-    }
-  })
+  if (fileContent.match(consolelogRegex)) {
+    warn(`⚠ Did you forget to remove console.log in file "${fileName}"`)
+  }
 }
