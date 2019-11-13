@@ -31,12 +31,13 @@ console.log('TCL: changedFiles', changedFiles)
 
 const consolelogRegex = /console\.log\(.*\)/
 for (const filePath in changedFiles) {
-  const fileContents = danger.github.utils.fileContents(filePath).toString()
-  console.log('TCL: fileContents', fileContents)
-  const splittedPath = filePath.split('/')
-  const fileName = splittedPath[splittedPath.length - 1]
+  danger.github.utils.fileContents(filePath).then((content) => {
+    console.log('TCL: fileContents', content)
+    const splittedPath = filePath.split('/')
+    const fileName = splittedPath[splittedPath.length - 1]
 
-  if (fileContents.match(consolelogRegex)) {
-    warn(`⚠ Did you forget to remove console.log in file "${fileName}"`)
-  }
+    if (content.match(consolelogRegex)) {
+      warn(`⚠ Did you forget to remove console.log in file "${fileName}"`)
+    }
+  })
 }
