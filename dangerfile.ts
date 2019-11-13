@@ -27,10 +27,12 @@ if (!jiraTicketRegex.test(prTitle)) {
     `🔍 I can't find the Jira ticket number in the PR title. You should include it for easy tracking`
   )
 }
+console.log('TCL: changedFiles', changedFiles)
 
 const consolelogRegex = /console\.log\(.*\)/
 for (const filePath in changedFiles) {
   const fileContents = danger.github.utils.fileContents(filePath).toString()
+  console.log('TCL: fileContents', fileContents)
   const splittedPath = filePath.split('/')
   const fileName = splittedPath[splittedPath.length - 1]
 
