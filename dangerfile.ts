@@ -17,7 +17,7 @@ if (numberOfReviewer) {
 const BIG_PR_THRESHOLD = 30
 const numberOfChangedFiles = pr.changed_files
 if (numberOfChangedFiles >= BIG_PR_THRESHOLD) {
-  warn('Your PR changed too many files, try to make it simpler 🙏')
+  warn('‼️ Your PR changed too many files, try to make it simpler 🙏')
 }
 
 const prTitle = pr.title
@@ -26,4 +26,15 @@ if (!jiraTicketRegex.test(prTitle)) {
   warn(
     `🔍 I can't find the Jira ticket number in the PR title. You should include it for easy tracking`
   )
+}
+
+const consolelogRegex = /console\.log\(.*\)/
+for (const filePath in changedFiles) {
+  const fileContents = danger.github.utils.fileContents(filePath).toString()
+  const splittedPath = filePath.split('/')
+  const fileName = splittedPath[splittedPath.length - 1]
+
+  if (fileContents.match(consolelogRegex)) {
+    warn(`⚠ Did you forget to remove console.log in file "${fileName}"`)
+  }
 }
