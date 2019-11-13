@@ -2,7 +2,7 @@ name: CI
 
 on: 
   pull_request:
-    types: [opened, reopened, synchronize, review_requested, review_requested_removed, edited]    
+    types: [opened, reopened, synchronize, review_requested, review_request_removed, edited]    
 
 jobs:
   build:
