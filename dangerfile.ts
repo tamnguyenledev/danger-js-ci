@@ -1,22 +1,40 @@
 import { message, danger, warn } from 'danger'
 
-const modifiedMD = danger.git.modified_files.join('- ')
-message('Changed Files in this PR: \n - ' + modifiedMD)
+// Setup
+const github = danger.github
+const pr = github.pr
+const modifiedFiles = danger.git.modified_files
+const newFiles = danger.git.created_files
+const changedFiles = [...modifiedFiles, ...newFiles]
 
-const numberOfReviewers = danger.github.requested_reviewers.users.length
-if (numberOfReviewers) {
-  message('Great work having someone review your code.')
+const numberOfReviewer = github.requested_reviewers.users.length
+if (numberOfReviewer) {
+  message('👏 Great work having someone review your code')
 } else {
-  warn('You should include at least 1 reviewer.')
+  warn('🕵 Remember to add at least 1 reviewer')
 }
 
-const numberOfChangedFiles = danger.github.pr.changed_files
-if (numberOfChangedFiles >= 30) {
-  warn('Your PR changed too many files, try to make it simpler.')
+const BIG_PR_THRESHOLD = 30
+const numberOfChangedFiles = pr.changed_files
+if (numberOfChangedFiles >= BIG_PR_THRESHOLD) {
+  warn('‼️ Your PR changed too many files, try to make it simpler 🙏')
 }
 
-const prTitle = danger.github.pr.title
+const prTitle = pr.title
 const jiraTicketRegex = /\[GE-\d*]/
 if (!jiraTicketRegex.test(prTitle)) {
-  warn('You should include Jira ticket number for this PR.')
+  warn(
+    `🔍 I can't find the Jira ticket number in the PR title. You should include it for easy tracking`
+  )
+}
+
+const consolelogRegex = /console\.log\(.*\)/
+for (const filePath in changedFiles) {
+  const fileContents = danger.github.utils.fileContents(filePath).toString()
+  const splittedPath = filePath.split('/')
+  const fileName = splittedPath[splittedPath.length - 1]
+
+  if (fileContents.match(consolelogRegex)) {
+    warn(`⚠ Did you forget to remove console.log in file "${fileName}"`)
+  }
 }

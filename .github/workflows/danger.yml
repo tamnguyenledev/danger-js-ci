@@ -1,0 +1,27 @@
+name: CI
+
+on: 
+  pull_request:
+    types: [opened, reopened, synchronize, review_requested, review_request_removed, edited]    
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@master
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        version: 10.x
+    - name: install yarn
+      run: npm install -g yarn
+    - name: yarn install, build
+      run: |
+        yarn install  --frozen-lockfile
+        yarn build
+    - name: Danger
+      run: yarn danger ci
+      env: 
+        GITHUB_TOKEN: "${{ secrets.DANGER_GITHUB_API_TOKEN }}"
