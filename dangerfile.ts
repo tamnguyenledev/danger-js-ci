@@ -70,5 +70,7 @@ const encourageDeletionMessage =
     ? '\n🎉 Great work keeping our codebase simple 🎉'
     : ''
 markdown(
-  `ℹ️ You added ${pr.additions} lines and deleted ${pr.deletions} lines.${encourageDeletionMessage}`
+  `---
+  ### Summary
+  ✏️ You added ${pr.additions} lines and deleted ${pr.deletions} lines.${encourageDeletionMessage}`
 )
