@@ -67,10 +67,10 @@ filesWithConsoleLog.length &&
 
 const encourageDeletionMessage =
   pr.deletions > pr.additions
-    ? '\n🎉 Great work keeping our codebase simple 🎉'
+    ? '\n>🎉 Great work keeping our codebase simple 🎉'
     : ''
 markdown(
   `---
   ### Summary
-  ✏️ You added ${pr.additions} lines and deleted ${pr.deletions} lines.${encourageDeletionMessage}`
+  >✏️ You added **${pr.additions}** lines and deleted **${pr.deletions}** lines.${encourageDeletionMessage}`
 )
