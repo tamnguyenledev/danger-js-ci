@@ -1,4 +1,4 @@
-import { message, danger, warn } from 'danger'
+import { message, danger, warn, markdown } from 'danger'
 import fs from 'fs'
 
 // Setup
@@ -69,6 +69,6 @@ const encourageDeletionMessage =
   pr.deletions > pr.additions
     ? '\n🎉 Great work keeping our codebase simple 🎉'
     : ''
-message(
+markdown(
   `ℹ️ You added ${pr.additions} lines and deleted ${pr.deletions} lines.${encourageDeletionMessage}`
 )
