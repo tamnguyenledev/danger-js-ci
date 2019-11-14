@@ -28,9 +28,7 @@ const commitsMessage = github.commits.map(
   (commitMeta) => commitMeta.commit.message
 )
 for (const index in commitsMessage) {
-  const message = commitsMessage[index]
-
-  if (message.toLowerCase().match(/feature/)) {
+  if (commitsMessage[index].toLowerCase().match(/feature/)) {
     if (!jiraTicketRegex.test(prTitle)) {
       warn(
         `🔍 You are adding a new feature but I don't see any Jira ticket. Did you miss it?`
