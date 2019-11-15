@@ -2,13 +2,13 @@
 
 This is a playground for Danger-js.
 
-If you're looking for an in depth tutorial on how to setup Danger, you can head over to [Getting started with Danger]([https://danger.systems/js/guides/getting_started.html](https://danger.systems/js/guides/getting_started.html) or DM me on [twitter](https://twitter.com/tamnguyenctg)
+If you're looking for an in depth tutorial on how to setup Danger, you can head over to [Getting started with Danger](https://danger.systems/js/guides/getting_started.html) or DM me on [twitter](https://twitter.com/tamnguyenctg)
 
 ## Getting Started
 
 Follow these steps to get the project up and running
 
-### Install
+### Install
 
 ```
 yarn install or npm install
@@ -28,15 +28,15 @@ yarn danger pr <pr_url>
 
 ## Some example rules
 
-> console.log warning - [PR#13](https://github.com/tamnguyenledev/danger-js-ci/pull/13%5D(https://github.com/tamnguyenledev/danger-js-ci/pull/13)
+> console.log warning - [PR#13](https://github.com/tamnguyenledev/danger-js-ci/pull/13)
 > 
-> Empty file warning - [PR#14]([https://github.com/tamnguyenledev/danger-js-ci/pull/14](https://github.com/tamnguyenledev/danger-js-ci/pull/14)
+> Empty file warning - [PR#14](https://github.com/tamnguyenledev/danger-js-ci/pull/14)
 > 
-> Require Jira ticket - [PR#15](https://github.com/tamnguyenledev/danger-js-ci/pull/13%5D(https://github.com/tamnguyenledev/danger-js-ci/pull/15)
+> Require Jira ticket - [PR#15](https://github.com/tamnguyenledev/danger-js-ci/pull/15)
 > 
-> Require reviewer - [PR#15](https://github.com/tamnguyenledev/danger-js-ci/pull/13%5D(https://github.com/tamnguyenledev/danger-js-ci/pull/15)
+> Require reviewer - [PR#15](https://github.com/tamnguyenledev/danger-js-ci/pull/15)
 > 
-> Big PR warning - [PR#15](https://github.com/tamnguyenledev/danger-js-ci/pull/13](https://github.com/tamnguyenledev/danger-js-ci/pull/15)
+> Big PR warning - [PR#15](https://github.com/tamnguyenledev/danger-js-ci/pull/15)
 
 ## Author
 
