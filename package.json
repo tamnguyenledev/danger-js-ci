@@ -12,6 +12,7 @@
     "@types/node": "^12.12.7",
     "@types/react": "^16.9.11",
     "danger": "^9.2.7",
+    "danger-plugin-labels": "^2.1.1",
     "typescript": "^3.7.2"
   },
   "scripts": {
