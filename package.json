@@ -13,6 +13,12 @@
     "@types/node": "^12.12.7",
     "@types/react": "^16.9.11",
     "danger": "^9.2.7",
+    "danger-plugin-eslint": "^0.1.0",
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^4.1.0",
     "typescript": "^3.7.2"
   },
   "scripts": {
