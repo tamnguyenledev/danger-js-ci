@@ -1,5 +1,5 @@
-// import { message, danger, warn } from 'danger'
-// import fs from 'fs'
+import { message, danger, warn } from 'danger'
+import fs from 'fs'
 
 // // Setup
 // const github = danger.github
@@ -73,6 +73,40 @@
 //   `ℹ️ You added ${pr.additions} lines and deleted ${pr.deletions} lines.${encourageDeletionMessage}`
 // )
 
-import eslint from 'danger-plugin-eslint'
+/**
+ * Tslint your code with Danger
+ */
+import { ILinterOptions, Linter } from 'tslint'
 
-eslint()
+const BASE_OPTIONS: ILinterOptions = {
+  fix: false,
+  formatter: 'json',
+}
+
+const eslint = (options: ILinterOptions = BASE_OPTIONS) => {
+  const filesToLint = danger.git.created_files.concat(danger.git.modified_files)
+  const cli = new Linter(options)
+  const fileName = '/components/input.tsx'
+  const fileContent = fs.readFileSync(fileName, 'utf8')
+  console.log('TCL: eslint -> fileContent', fileContent)
+  cli.lint(fileName, fileContent)
+  console.log(cli.getResult())
+
+  // return Promise.all(filesToLint.map((f) => lintFile(cli, config, f)))
+}
+
+// async function lintFile(linter, config, path) {
+//   const contents = await danger.github.utils.fileContents(path)
+//   const report = linter.executeOnText(contents, path)
+
+//   report.results[0].messages.map((msg) => {
+//     if (msg.fatal) {
+//       fail(`Fatal error linting ${path} with eslint.`)
+//       return
+//     }
+
+//     const fn = { 1: warn, 2: fail }[msg.severity]
+
+//     fn(`${path} line ${msg.line} – ${msg.message} (${msg.ruleId})`)
+//   })
+// }
