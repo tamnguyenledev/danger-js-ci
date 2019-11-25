@@ -83,7 +83,7 @@ const BASE_OPTIONS: ILinterOptions = {
   formatter: 'json',
 }
 
-const eslint = (options: ILinterOptions = BASE_OPTIONS) => {
+const tslint = (options: ILinterOptions = BASE_OPTIONS) => {
   const filesToLint = danger.git.created_files.concat(danger.git.modified_files)
   const cli = new Linter(options)
   const fileName = '/components/input.tsx'
@@ -94,6 +94,8 @@ const eslint = (options: ILinterOptions = BASE_OPTIONS) => {
 
   // return Promise.all(filesToLint.map((f) => lintFile(cli, config, f)))
 }
+
+tslint()
 
 // async function lintFile(linter, config, path) {
 //   const contents = await danger.github.utils.fileContents(path)
