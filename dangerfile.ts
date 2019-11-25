@@ -86,7 +86,7 @@ const BASE_OPTIONS: ILinterOptions = {
 const tslint = (options: ILinterOptions = BASE_OPTIONS) => {
   const filesToLint = danger.git.created_files.concat(danger.git.modified_files)
   const cli = new Linter(options)
-  const fileName = '/components/input.tsx'
+  const fileName = './components/input.tsx'
   const fileContent = fs.readFileSync(fileName, 'utf8')
   console.log('TCL: eslint -> fileContent', fileContent)
   cli.lint(fileName, fileContent)
