@@ -80,7 +80,7 @@ import { ILinterOptions, Linter } from 'tslint'
 
 const BASE_OPTIONS: ILinterOptions = {
   fix: false,
-  formatter: 'json',
+  formatter: 'stylish',
 }
 
 const tslint = (options: ILinterOptions = BASE_OPTIONS) => {
@@ -88,7 +88,6 @@ const tslint = (options: ILinterOptions = BASE_OPTIONS) => {
   const cli = new Linter(options)
   const fileName = './components/input.tsx'
   const fileContent = fs.readFileSync(fileName, 'utf8')
-  console.log('TCL: eslint -> fileContent', fileContent)
   cli.lint(fileName, fileContent)
   console.log(cli.getResult())
 
