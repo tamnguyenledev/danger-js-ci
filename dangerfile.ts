@@ -1,4 +1,4 @@
-import { message, danger, warn } from 'danger'
+import { message, danger, warn, markdown } from 'danger'
 import fs from 'fs'
 
 // Setup
@@ -67,8 +67,10 @@ filesWithConsoleLog.length &&
 
 const encourageDeletionMessage =
   pr.deletions > pr.additions
-    ? '\n🎉 Great work keeping our codebase simple 🎉'
+    ? '\n>🎉 Great work keeping our codebase simple 🎉'
     : ''
-message(
-  `ℹ️ You added ${pr.additions} lines and deleted ${pr.deletions} lines.${encourageDeletionMessage}`
+markdown(
+  `---
+  ### Summary
+  >✏️ You added **${pr.additions}** lines and deleted **${pr.deletions}** lines.${encourageDeletionMessage}`
 )
