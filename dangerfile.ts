@@ -1,4 +1,4 @@
-import { message, danger, warn } from 'danger'
+import { message, danger, warn, fail } from 'danger'
 import fs from 'fs'
 
 // // Setup
@@ -76,22 +76,45 @@ import fs from 'fs'
 /**
  * Tslint your code with Danger
  */
-import { ILinterOptions, Linter } from 'tslint'
+import { ILinterOptions, Linter, Configuration } from 'tslint'
 
 const BASE_OPTIONS: ILinterOptions = {
   fix: false,
   formatter: 'stylish',
 }
 
-const tslint = (options: ILinterOptions = BASE_OPTIONS) => {
-  const filesToLint = danger.git.created_files.concat(danger.git.modified_files)
-  const cli = new Linter(options)
-  const fileName = './components/test.ts'
-  const fileContent = fs.readFileSync(fileName, 'utf8')
-  cli.lint(fileName, fileContent)
-  console.log(cli.getResult())
+const RULE_SEVERITY = {
+  error: 'ERROR',
+  warning: 'WARNING',
+}
 
-  // return Promise.all(filesToLint.map((f) => lintFile(cli, config, f)))
+const tslint = (options: ILinterOptions = BASE_OPTIONS) => {
+  // const filesToLint = danger.git.created_files.concat(danger.git.modified_files)
+  const cli = new Linter(options)
+  const fileNames = ['./components/input.tsx', './components/test.ts']
+  const config = Configuration.findConfiguration('tslint.json').results
+
+  fileNames.map((fileName, index) => {
+    const fileContent = fs.readFileSync(fileName, 'utf8')
+    cli.lint(fileName, fileContent, config)
+  })
+  const failures = cli.getResult().failures
+
+  failures.map((failure) => {
+    const failureObj = failure.toJson()
+    let method
+    if (failureObj.ruleSeverity === RULE_SEVERITY.error) {
+      method = warn
+    } else if (failureObj.ruleSeverity === RULE_SEVERITY.warning) {
+      method = fail
+    }
+
+    method(
+      failureObj.failure,
+      failure.getFileName(),
+      failureObj.startPosition.line
+    )
+  })
 }
 
 tslint()
