@@ -104,9 +104,9 @@ const tslint = (options: ILinterOptions = BASE_OPTIONS) => {
     const failureObj = failure.toJson()
     let method
     if (failureObj.ruleSeverity === RULE_SEVERITY.error) {
-      method = warn
-    } else if (failureObj.ruleSeverity === RULE_SEVERITY.warning) {
       method = fail
+    } else if (failureObj.ruleSeverity === RULE_SEVERITY.warning) {
+      method = warn
     }
 
     method(
